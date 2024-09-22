@@ -20,9 +20,26 @@ const {
 } = Astro.props;
 ---
 
-<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-5xl ${classes?.container ?? ''}`} bg={bg}>
-  <div class:list={['flex flex-col gap-8 md:gap-12', { 'md:flex-row-reverse': isReversed }, { 'md:flex-row': image }]}>
-    <div class:list={['md:py-4 md:self-center', { 'md:basis-1/2': image }, { 'w-full': !image }]}>
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-5xl ${classes?.container ?? ''}`}
+  bg={bg}
+>
+  <div
+    class:list={[
+      'flex flex-col gap-8 md:gap-12',
+      { 'md:flex-row-reverse': isReversed },
+      { 'md:flex-row': image },
+    ]}
+  >
+    <div
+      class:list={[
+        'md:py-4 md:self-center',
+        { 'md:basis-1/2': image },
+        { 'w-full': !image },
+      ]}
+    >
       <Headline
         title={title}
         subtitle={subtitle}
@@ -33,7 +50,10 @@ const {
           ...((classes?.headline as object) ?? {}),
         }}
       />
-      <Timeline items={items} classes={classes?.items as Record<string, never>} />
+      <Timeline
+        items={items}
+        classes={classes?.items as Record<string, never>}
+      />
     </div>
     {
       image && (

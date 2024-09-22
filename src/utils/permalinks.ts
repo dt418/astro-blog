@@ -25,7 +25,9 @@ export const BLOG_BASE = cleanSlug(APP_BLOG?.list?.pathname);
 export const CATEGORY_BASE = cleanSlug(APP_BLOG?.category?.pathname);
 export const TAG_BASE = cleanSlug(APP_BLOG?.tag?.pathname) || 'tag';
 
-export const POST_PERMALINK_PATTERN = trimSlash(APP_BLOG?.post?.permalink || `${BLOG_BASE}/%slug%`);
+export const POST_PERMALINK_PATTERN = trimSlash(
+  APP_BLOG?.post?.permalink || `${BLOG_BASE}/%slug%`
+);
 
 /** */
 export const getCanonical = (path = ''): string | URL => {
@@ -101,7 +103,8 @@ export const getAsset = (path: string): string =>
     .join('/');
 
 /** */
-const definitivePermalink = (permalink: string): string => createPath(BASE_PATHNAME, permalink);
+const definitivePermalink = (permalink: string): string =>
+  createPath(BASE_PATHNAME, permalink);
 
 /** */
 export const applyGetPermalinks = (menu: object = {}) => {

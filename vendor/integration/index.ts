@@ -5,7 +5,9 @@ import type { AstroConfig, AstroIntegration } from 'astro';
 import configBuilder, { type Config } from './utils/configBuilder';
 import loadConfig from './utils/loadConfig';
 
-export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegration => {
+export default ({
+  config: _themeConfig = 'src/config.yaml',
+} = {}): AstroIntegration => {
   let cfg: AstroConfig;
   return {
     name: 'astrowind-integration',
@@ -26,7 +28,8 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
         const resolvedVirtualModuleId = '\0' + virtualModuleId;
 
         const rawJsonConfig = (await loadConfig(_themeConfig)) as Config;
-        const { SITE, I18N, METADATA, APP_BLOG, UI, ANALYTICS } = configBuilder(rawJsonConfig);
+        const { SITE, I18N, METADATA, APP_BLOG, UI, ANALYTICS } =
+          configBuilder(rawJsonConfig);
 
         updateConfig({
           site: SITE.site,
@@ -86,24 +89,39 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
 
           const hasIntegration =
             Array.isArray(cfg?.integrations) &&
-            cfg.integrations?.find((e) => e?.name === '@astrojs/sitemap') !== undefined;
+            cfg.integrations?.find((e) => e?.name === '@astrojs/sitemap') !==
+              undefined;
           const sitemapExists = fs.existsSync(sitemapFile);
 
           if (hasIntegration && sitemapExists) {
-            const robotsTxt = fs.readFileSync(robotsTxtFile, { encoding: 'utf8', flag: 'a+' });
-            const sitemapUrl = new URL(sitemapName, String(new URL(cfg.base, cfg.site)));
+            const robotsTxt = fs.readFileSync(robotsTxtFile, {
+              encoding: 'utf8',
+              flag: 'a+',
+            });
+            const sitemapUrl = new URL(
+              sitemapName,
+              String(new URL(cfg.base, cfg.site))
+            );
             const pattern = /^Sitemap:(.*)$/m;
 
             if (!pattern.test(robotsTxt)) {
-              fs.appendFileSync(robotsTxtFileInOut, `${os.EOL}${os.EOL}Sitemap: ${sitemapUrl}`, {
-                encoding: 'utf8',
-                flag: 'w',
-              });
+              fs.appendFileSync(
+                robotsTxtFileInOut,
+                `${os.EOL}${os.EOL}Sitemap: ${sitemapUrl}`,
+                {
+                  encoding: 'utf8',
+                  flag: 'w',
+                }
+              );
             } else {
-              fs.writeFileSync(robotsTxtFileInOut, robotsTxt.replace(pattern, `Sitemap: ${sitemapUrl}`), {
-                encoding: 'utf8',
-                flag: 'w',
-              });
+              fs.writeFileSync(
+                robotsTxtFileInOut,
+                robotsTxt.replace(pattern, `Sitemap: ${sitemapUrl}`),
+                {
+                  encoding: 'utf8',
+                  flag: 'w',
+                }
+              );
             }
           }
           // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -42,7 +42,10 @@ const _image = await findImage(props.src);
 let image: ImageType | undefined = undefined;
 
 if (typeof _image === 'string') {
-  if ((_image.startsWith('http://') || _image.startsWith('https://')) && isUnpicCompatible(_image)) {
+  if (
+    (_image.startsWith('http://') || _image.startsWith('https://')) &&
+    isUnpicCompatible(_image)
+  ) {
     image = await getImagesOptimized(_image, props, unpicOptimizer);
   } else {
     image = {
@@ -59,6 +62,11 @@ if (typeof _image === 'string') {
   !image ? (
     <Fragment />
   ) : (
-    <img src={image.src} crossorigin="anonymous" referrerpolicy="no-referrer" {...image.attributes} />
+    <img
+      src={image.src}
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      {...image.attributes}
+    />
   )
 }
