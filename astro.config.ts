@@ -18,7 +18,6 @@ import {
   responsiveTablesRehypePlugin,
   lazyImagesRehypePlugin,
 } from './src/utils/frontmatter';
-import { imageService } from '@unpic/astro/service';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -84,7 +83,6 @@ export default defineConfig({
 
   image: {
     domains: ['cdn.pixabay.com', 'images.unsplash.com'],
-    service: imageService(),
   },
 
   markdown: {
