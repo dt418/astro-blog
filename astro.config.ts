@@ -19,6 +19,8 @@ import {
   lazyImagesRehypePlugin,
 } from './src/utils/frontmatter';
 
+import vercel from '@astrojs/vercel/serverless';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const hasExternalScripts = false;
@@ -32,7 +34,7 @@ const whenExternalScripts = (
     : [];
 
 export default defineConfig({
-  output: 'static',
+  output: 'hybrid',
 
   integrations: [
     tailwind({
@@ -97,4 +99,7 @@ export default defineConfig({
       },
     },
   },
+  adapter: vercel({
+    isr: true,
+  }),
 });
