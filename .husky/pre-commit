@@ -1,5 +1,5 @@
 # .husky/pre-commit
 #!/bin/sh
-npm run check
 npm run fix
+npm run check
 npm run build
