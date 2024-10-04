@@ -19,9 +19,7 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "yaml.schemas": {
-    "./.vscode/astrowind/config-schema.json": "/src/config.yaml"
-  },
   "eslint.useFlatConfig": true,
-  "[markdown]": {}
+  "[markdown]": {},
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

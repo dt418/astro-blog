@@ -20,9 +20,16 @@ import {
 } from './src/utils/frontmatter';
 
 import vercel from '@astrojs/vercel/serverless';
+import react from '@astrojs/react';
+import node from '@astrojs/node';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+let adapter = vercel();
+
+if (process.argv[3] === '--node' || process.argv[4] === '--node') {
+  adapter = node({ mode: 'standalone' });
+}
 const hasExternalScripts = false;
 const whenExternalScripts = (
   items: (() => AstroIntegration) | (() => AstroIntegration)[] = []
@@ -58,13 +65,11 @@ export default defineConfig({
         ],
       },
     }),
-
     ...whenExternalScripts(() =>
       partytown({
         config: { forward: ['dataLayer.push'] },
       })
     ),
-
     compress({
       CSS: true,
       HTML: {
@@ -77,10 +82,10 @@ export default defineConfig({
       SVG: false,
       Logger: 1,
     }),
-
     astrowind({
       config: './src/config.yaml',
     }),
+    react(),
   ],
 
   image: {
@@ -99,7 +104,5 @@ export default defineConfig({
       },
     },
   },
-  adapter: vercel({
-    isr: true,
-  }),
+  adapter: adapter,
 });
